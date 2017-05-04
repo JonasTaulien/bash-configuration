@@ -1,0 +1,75 @@
+#!/bin/bash
+##############################
+# Configures Bash
+#############################
+#################### Constants
+doc=$(cat <<'//'
+##########
+# Return value of jr_get_operating_system when OS is Debian
+# @type String
+##########
+//
+)
+JR_OPERATING_SYSTEM_DEBIAN="Debian"
+alias DOC_JR_OPERATING_SYSTEM_DEBIAN="echo \"$doc\""
+export JR_OPERATING_SYSTEM_DEBIAN
+
+doc=$(cat <<'//'
+##########
+# Return value of jr_get_operating_system when OS is macOS
+# @type String
+##########
+//
+)
+JR_OPERATING_SYSTEM_MACOS="macOS"
+alias DOC_JR_OPERATING_SYSTEM_MACOS="echo \"$doc\""
+export JR_OPERATING_SYSTEM_MACOS
+
+doc=$(cat <<'//'
+##########
+# Return value of jr_get_operating_system when OS couldn't be recognized
+# @type String
+##########
+//
+)
+JR_OPERATING_SYSTEM_UNKNOWN="Unknown"
+alias DOC_JR_OPERATING_SYSTEM_UNKNOWN="echo \"$doc\""
+export JR_OPERATING_SYSTEM_UNKNOWN
+
+#################### Functions
+doc=$(cat <<'//'
+##########
+# @stdout The absolute path of the parent directory of the script from which this function gets called
+##########
+//
+)
+jr_get_absolute_path_of_parent_directory_of_this_script(){
+    cd $(dirname "$0")
+    pwd
+}
+alias DOC_jr_get_absolute_path_of_parent_directory_of_this_script="echo \"$doc\""
+
+doc=$(cat <<'//'
+##########
+# @stdout The value of one of theses variables:
+#         - JR_OPERATING_SYSTEM_DEBIAN
+#         - JR_OPERATING_SYSTEM_MACOS
+#         - JR_OPERATING_SYSTEM_UNKNOWN
+##########
+//
+)
+jr_get_operating_system(){
+    case $(uname -s) in
+        "Linux") echo "$JR_OPERATING_SYSTEM_DEBIAN" ;;
+        "Darwin") echo "$JR_OPERATING_SYSTEM_MACOS" ;;
+        *) echo "$JR_OPERATING_SYSTEM_UNKNOWN" ;;
+    esac
+}
+alias DOC_jr_get_operating_system="echo \"$doc\""
+export -f jr_get_absolute_path_of_parent_directory_of_this_script
+
+
+
+#################### Export some calculated values
+export JR_BASH_CONFIGURATION_ROOT=$(jr_get_absolute_path_of_parent_directory_of_this_script)
+export JR_OPERATING_SYSTEM=$(jr_get_operating_system)
