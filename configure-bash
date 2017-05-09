@@ -1,75 +1,40 @@
 #!/bin/bash
 ##############################
-# Configures Bash
-#############################
-#################### Constants
-doc=$(cat <<'//'
-##########
-# Return value of jr_get_operating_system when OS is Debian
-# @type String
-##########
-//
-)
-JR_OPERATING_SYSTEM_DEBIAN="Debian"
-alias DOC_JR_OPERATING_SYSTEM_DEBIAN="echo \"$doc\""
-export JR_OPERATING_SYSTEM_DEBIAN
+# Exports:
+# - @see jr_doc_funct_get_absolute_path_of_parent_directory
+# - @see jr_doc_const_bash_configuration_root
+# - whatever function/get_operating_system exports
+##############################
 
-doc=$(cat <<'//'
-##########
-# Return value of jr_get_operating_system when OS is macOS
-# @type String
-##########
-//
-)
-JR_OPERATING_SYSTEM_MACOS="macOS"
-alias DOC_JR_OPERATING_SYSTEM_MACOS="echo \"$doc\""
-export JR_OPERATING_SYSTEM_MACOS
 
-doc=$(cat <<'//'
-##########
-# Return value of jr_get_operating_system when OS couldn't be recognized
-# @type String
-##########
-//
-)
-JR_OPERATING_SYSTEM_UNKNOWN="Unknown"
-alias DOC_JR_OPERATING_SYSTEM_UNKNOWN="echo \"$doc\""
-export JR_OPERATING_SYSTEM_UNKNOWN
 
-#################### Functions
-doc=$(cat <<'//'
+alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"$(cat <<'//'
 ##########
-# @stdout The absolute path of the parent directory of the script from which this function gets called
+# Calculates the absolute path of the parent directory of the given path.
+# @param1 A (maybe relative) path to a file or directory
+# @stdout Absolute path of the parent directory of the file or directory
+# @example Get base-path of current script: \$(jr_funct_get_absolute_path_of_parent_directory "\${BASH_SOURCE[0]}")
 ##########
 //
-)
-jr_get_absolute_path_of_parent_directory_of_this_script(){
-    cd $(dirname "$0")
-    pwd
+)\""
+jr_funct_get_absolute_path_of_parent_directory(){
+    local path="$1"
+    echo -n "$(cd "$(dirname "$path")" && pwd)"
 }
-alias DOC_jr_get_absolute_path_of_parent_directory_of_this_script="echo \"$doc\""
+export -f jr_funct_get_absolute_path_of_parent_directory
 
-doc=$(cat <<'//'
+
+
+alias jr_doc_const_bash_configuration_root="echo \"$(cat <<'//'
 ##########
-# @stdout The value of one of theses variables:
-#         - JR_OPERATING_SYSTEM_DEBIAN
-#         - JR_OPERATING_SYSTEM_MACOS
-#         - JR_OPERATING_SYSTEM_UNKNOWN
+# Absolute path to the bash configuration root directory.
+# @type String
 ##########
 //
-)
-jr_get_operating_system(){
-    case $(uname -s) in
-        "Linux") echo "$JR_OPERATING_SYSTEM_DEBIAN" ;;
-        "Darwin") echo "$JR_OPERATING_SYSTEM_MACOS" ;;
-        *) echo "$JR_OPERATING_SYSTEM_UNKNOWN" ;;
-    esac
-}
-alias DOC_jr_get_operating_system="echo \"$doc\""
-export -f jr_get_absolute_path_of_parent_directory_of_this_script
+)\""
+export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "${BASH_SOURCE[0]}")"
 
 
 
-#################### Export some calculated values
-export JR_BASH_CONFIGURATION_ROOT=$(jr_get_absolute_path_of_parent_directory_of_this_script)
-export JR_OPERATING_SYSTEM=$(jr_get_operating_system)
+# Source functions
+source "$jr_const_bash_configuration_root/function/get_operating_system"
