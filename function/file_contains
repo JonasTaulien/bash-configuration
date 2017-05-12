@@ -1,0 +1,27 @@
+#!/bin/bash
+##############################
+# Exports:
+# - jr_funct_file_contains
+#   @see jr_doc_funct_file_contains
+##############################
+
+
+
+alias jr_doc_funct_file_contains="echo \"$(cat <<'//'
+##########
+# Checks whether a file contains a regex.
+#
+# @param1 a path to a file (relative to cwd)
+# @param2 a regex
+# @return 
+#   - 0 when the given file DOES contain the given regex
+#   - 1 when the given file DOES NOT contain the given regex
+##########
+//
+)\""
+jr_funct_file_contains(){
+    local filePath="$1"
+    local regex="$2"
+    grep --quiet --extended-regexp "$regex" "$filePath"
+}
+export -f jr_funct_file_contains

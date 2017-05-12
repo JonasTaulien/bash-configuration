@@ -1,9 +1,14 @@
 #!/bin/bash
 ##############################
 # Exports:
-# - @see jr_doc_funct_get_absolute_path_of_parent_directory
-# - @see jr_doc_const_bash_configuration_root
+# - jr_funct_get_absolute_path_of_parent_directory
+#   @see jr_doc_funct_get_absolute_path_of_parent_directory
+#
+# - jr_const_bash_configuration_root
+#   @see jr_doc_const_bash_configuration_root
+#
 # - whatever function/get_operating_system exports
+# - whatever function/file_contains exports
 ##############################
 
 
@@ -11,9 +16,11 @@
 alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"$(cat <<'//'
 ##########
 # Calculates the absolute path of the parent directory of the given path.
+# If the given path is relative, it is assumed, that it is relative to the current working directory
+# Example: Get base-path of current script: \$(jr_funct_get_absolute_path_of_parent_directory "\${BASH_SOURCE[0]}")
+#
 # @param1 A (maybe relative) path to a file or directory
 # @stdout Absolute path of the parent directory of the file or directory
-# @example Get base-path of current script: \$(jr_funct_get_absolute_path_of_parent_directory "\${BASH_SOURCE[0]}")
 ##########
 //
 )\""
@@ -28,13 +35,23 @@ export -f jr_funct_get_absolute_path_of_parent_directory
 alias jr_doc_const_bash_configuration_root="echo \"$(cat <<'//'
 ##########
 # Absolute path to the bash configuration root directory.
+#
 # @type String
 ##########
 //
 )\""
-export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "${BASH_SOURCE[0]}")"
+readonly pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
+export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "$pathnameOfCurrentlyExecutingScript")"
 
 
 
 # Source functions
 source "$jr_const_bash_configuration_root/function/get_operating_system"
+source "$jr_const_bash_configuration_root/function/file_contains"
+
+
+
+
+# Add sourcing of itself to ~/.bashrc
+# Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
+# Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
