@@ -1,8 +1,8 @@
 # My bash configuration
 
-## Installation & update
-Execute idempotent configure-bash
+## Installation
+Execute
 ```sh
-/path/to/bash-configuration/configure-bash
+source /path/to/bash-configuration/configure-bash
 ```
 Now everything is set up :)

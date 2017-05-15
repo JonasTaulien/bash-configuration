@@ -72,10 +72,10 @@ alias jr_doc_funct_get_operating_system="echo \"$(cat <<'//'
 jr_funct_get_operating_system(){
     local os
     case $(uname -s) in
-        "Linux") os="$jr_const_operating_system_debian" ;;
-        "Darwin") os="$jr_const_operating_system_macos" ;;
-        *) os="$jr_const_operating_system_unknown" ;;
+        "Linux") os="${jr_const_operating_system_debian}" ;;
+        "Darwin") os="${jr_const_operating_system_macos}" ;;
+        *) os="${jr_const_operating_system_unknown}" ;;
     esac
-    echo -n "$os"
+    echo -n "${os}"
 }
 export -f jr_funct_get_operating_system

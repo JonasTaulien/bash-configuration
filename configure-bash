@@ -25,8 +25,8 @@ alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"$(cat <<'//'
 //
 )\""
 jr_funct_get_absolute_path_of_parent_directory(){
-    local path="$1"
-    echo -n "$(cd "$(dirname "$path")" && pwd)"
+    local path="${1}"
+    echo -n "$(cd "$(dirname "${path}")" && pwd)"
 }
 export -f jr_funct_get_absolute_path_of_parent_directory
 
@@ -40,18 +40,29 @@ alias jr_doc_const_bash_configuration_root="echo \"$(cat <<'//'
 ##########
 //
 )\""
-readonly pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
-export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "$pathnameOfCurrentlyExecutingScript")"
+pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
+export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "${pathnameOfCurrentlyExecutingScript}")"
 
 
 
 # Source functions
-source "$jr_const_bash_configuration_root/function/get_operating_system"
-source "$jr_const_bash_configuration_root/function/file_contains"
+source "${jr_const_bash_configuration_root}/function/get_operating_system"
+source "${jr_const_bash_configuration_root}/function/file_contains"
 
 
 
 
 # Add sourcing of itself to ~/.bashrc
+pathToConfigureBash="${jr_const_bash_configuration_root}/configure-bash"
+sourceString=$(cat <<//
+if [ -f "${pathToConfigureBash}" ]; then
+    source "${pathToConfigureBash}"
+fi    
+//
+)
+if ! jr_funct_file_contains ~/.bashrc "${sourceString}"; then
+    echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
+    echo -e "\n\n${sourceString}" >> ~/.bashrc
+fi
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)

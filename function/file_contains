@@ -9,19 +9,19 @@
 
 alias jr_doc_funct_file_contains="echo \"$(cat <<'//'
 ##########
-# Checks whether a file contains a regex.
+# Checks whether a file contains a string.
 #
 # @param1 a path to a file (relative to cwd)
-# @param2 a regex
+# @param2 a string (multiline works)
 # @return 
-#   - 0 when the given file DOES contain the given regex
-#   - 1 when the given file DOES NOT contain the given regex
+#   - 0 when the given file DOES contain the given string
+#   - 1 when the given file DOES NOT contain the given string
 ##########
 //
 )\""
 jr_funct_file_contains(){
-    local filePath="$1"
-    local regex="$2"
-    grep --quiet --extended-regexp "$regex" "$filePath"
+    local filePath="${1}"
+    local string="${2}"
+    grep --quiet --text --null-data --fixed-strings "${string}" "${filePath}"
 }
 export -f jr_funct_file_contains
