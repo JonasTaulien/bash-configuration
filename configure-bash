@@ -9,6 +9,7 @@
 #
 # - whatever function/get_operating_system exports
 # - whatever function/file_contains exports
+# - whatever function/idempotent_append
 ##############################
 
 
