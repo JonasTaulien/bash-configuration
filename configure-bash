@@ -4,9 +4,6 @@
 # - jr_funct_get_absolute_path_of_parent_directory
 #   @see jr_doc_funct_get_absolute_path_of_parent_directory
 #
-# - jr_const_bash_configuration_root
-#   @see jr_doc_const_bash_configuration_root
-#
 # - whatever function/get_operating_system exports
 # - whatever function/file_contains exports
 # - whatever function/idempotent_append
@@ -33,28 +30,21 @@ export -f jr_funct_get_absolute_path_of_parent_directory
 
 
 
-alias jr_doc_const_bash_configuration_root="echo \"$(cat <<'//'
-##########
-# Absolute path to the bash configuration root directory.
-#
-# @type String
-##########
-//
-)\""
+# Calculate absolute path to parent directory of this file
 pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
-export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_directory "${pathnameOfCurrentlyExecutingScript}")"
+bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathnameOfCurrentlyExecutingScript}")"
 
 
 
 # Source functions
-source "${jr_const_bash_configuration_root}/function/get_operating_system"
-source "${jr_const_bash_configuration_root}/function/file_contains"
-source "${jr_const_bash_configuration_root}/function/idempotent_append"
+source "${bashConfigurationRoot}/function/get_operating_system"
+source "${bashConfigurationRoot}/function/file_contains"
+source "${bashConfigurationRoot}/function/idempotent_append"
 
 
 
 # Add sourcing of itself to ~/.bashrc
-pathToConfigureBash="${jr_const_bash_configuration_root}/configure-bash"
+pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
 sourceString=$(cat <<//
 
 
