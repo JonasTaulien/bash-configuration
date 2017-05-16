@@ -48,21 +48,22 @@ export jr_const_bash_configuration_root="$(jr_funct_get_absolute_path_of_parent_
 # Source functions
 source "${jr_const_bash_configuration_root}/function/get_operating_system"
 source "${jr_const_bash_configuration_root}/function/file_contains"
-
+source "${jr_const_bash_configuration_root}/function/idempotent_append"
 
 
 
 # Add sourcing of itself to ~/.bashrc
 pathToConfigureBash="${jr_const_bash_configuration_root}/configure-bash"
 sourceString=$(cat <<//
+
+
 if [ -f "${pathToConfigureBash}" ]; then
     source "${pathToConfigureBash}"
-fi    
+fi
 //
 )
-if ! jr_funct_file_contains ~/.bashrc "${sourceString}"; then
+if jr_funct_idempotent_append ~/.bashrc "${sourceString}"; then
     echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
-    echo -e "\n\n${sourceString}" >> ~/.bashrc
-fi
+fi 
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
