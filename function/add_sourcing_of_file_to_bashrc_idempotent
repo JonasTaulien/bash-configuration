@@ -1,0 +1,39 @@
+#!/bin/bash
+##############################
+# Exports:
+# - jr_funct_add_sourcing_of_file_to_bashrc_idempotent
+#   @see jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent
+#
+# Requires:
+# - jr_funct_append_idempotent
+#   @see jr_doc_funct_append_idempotent
+# - jr_funct_get_absolute_path_of_parent_directory
+#   @see jr_doc_funct_get_absolute_path_of_parent_directory
+##############################
+
+alias jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent="echo \"$(cat <<'//'
+##########
+# Appends the sourcing of a file to the ~/.bashrc if the file does not already get sourced in it.
+#
+# @param1 a path to a file (relative to cwd)
+# @return
+#   - 0 when the sourcing was appended to the ~/.bashrc file
+#   - 1 when the sourcing was already contained in the ~/.bashrc file
+##########
+//
+)\""
+jr_funct_add_sourcing_of_file_to_bashrc_idempotent(){
+    local fileToBeSourced="${1}"
+    local absolutePathOfFileToBeSourced=$(jr_funct_get_absolute_path_of_parent_directory "${fileToBeSourced}")
+
+    sourceString=$(cat <<//
+
+
+if [ -f "${fileToBeSourced}" ]; then
+    source "${fileToBeSourced}"
+fi
+//
+    )
+    jr_funct_append_idempotent ~/.bashrc "${sourceString}"
+}
+export -f jr_funct_add_sourcing_of_file_to_bashrc_idempotent

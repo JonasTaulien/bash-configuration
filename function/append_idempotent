@@ -1,15 +1,15 @@
 #!/bin/bash
 ##############################
 # Exports:
-# - jr_funct_idempotent_append
-#   @see jr_doc_funct_idempotent_append
+# - jr_funct_append_idempotent
+#   @see jr_doc_funct_append_idempotent
 #
 # Requires:
 # - jr_funct_file_contains
 #   @see jr_doc_funct_file_contains
 ##############################
 
-alias jr_doc_funct_idempotent_append="echo \"$(cat <<'//'
+alias jr_doc_funct_append_idempotent="echo \"$(cat <<'//'
 ##########
 # Appends a string to a file if the file does not contain the string.
 #
@@ -21,7 +21,7 @@ alias jr_doc_funct_idempotent_append="echo \"$(cat <<'//'
 ##########
 //
 )\""
-jr_funct_idempotent_append(){
+jr_funct_append_idempotent(){
     local filePath="${1}"
     local string="${2}"
     if jr_funct_file_contains "${filePath}" "${string}"; then
@@ -31,4 +31,4 @@ jr_funct_idempotent_append(){
         return 0
     fi
 }
-export -f jr_funct_idempotent_append
+export -f jr_funct_append_idempotent

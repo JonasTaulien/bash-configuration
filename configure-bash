@@ -6,11 +6,16 @@
 #
 # - whatever function/get_operating_system exports
 # - whatever function/file_contains exports
-# - whatever function/idempotent_append
+# - whatever function/append_idempotent
+# - whatever function/add_sourcing_of_file_to_bashrc_idempotent
 ##############################
 
 
 
+#################### Pre
+
+# We can't create a function file for this because for sourcing function files we need no be able
+# to calculate the path to them.
 alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"$(cat <<'//'
 ##########
 # Calculates the absolute path of the parent directory of the given path.
@@ -36,25 +41,21 @@ bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathn
 
 
 
-# Source functions
+#################### Source functions
 source "${bashConfigurationRoot}/function/get_operating_system"
 source "${bashConfigurationRoot}/function/file_contains"
-source "${bashConfigurationRoot}/function/idempotent_append"
+source "${bashConfigurationRoot}/function/append_idempotent"
+source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
 
 
+
+#################### Idempotent setup
 
 # Add sourcing of itself to ~/.bashrc
 pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
-sourceString=$(cat <<//
-
-
-if [ -f "${pathToConfigureBash}" ]; then
-    source "${pathToConfigureBash}"
-fi
-//
-)
-if jr_funct_idempotent_append ~/.bashrc "${sourceString}"; then
+if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; then
     echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
-fi 
+fi
+
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
