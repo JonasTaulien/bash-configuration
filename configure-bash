@@ -8,6 +8,7 @@
 # - whatever function/file_contains exports
 # - whatever function/append_idempotent exports
 # - whatever function/add_sourcing_of_file_to_bashrc_idempotent exports
+# - whatever function/list_files_containing exports
 # - whatever function/tar_create exports
 ##############################
 
@@ -47,7 +48,12 @@ source "${bashConfigurationRoot}/function/get_operating_system"
 source "${bashConfigurationRoot}/function/file_contains"
 source "${bashConfigurationRoot}/function/append_idempotent"
 source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
+<<<<<<< HEAD
 source "${bashConfigurationRoot}/function/tar_create"
+=======
+source "${bashConfigurationRoot}/function/list_files_containing"
+
+>>>>>>> 0196f907dbf6ec85e238f43f79e1b9d2687723ed
 
 
 #################### Idempotent setup
