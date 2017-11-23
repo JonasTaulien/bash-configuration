@@ -1,0 +1,15 @@
+#!/bin/bash
+
+##########
+# -p is for printing slashes after directory names
+# -1 is for printing every file on its own line
+# -A is for printing also files, that are starting with a dot (but not '.' and '..')
+##########
+alias ls1='ls -p1A'
+
+##########
+# -p is for printing slashes after directory names
+# -l is for printing every file on its own line, prefixed with meta-information
+# -A is for printing also files, that are starting with a dot (but not '.' and '..')
+##########
+alias lsl='ls -plA'
