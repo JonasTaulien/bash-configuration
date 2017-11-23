@@ -8,8 +8,14 @@
 # - whatever function/file_contains exports
 # - whatever function/append_idempotent exports
 # - whatever function/add_sourcing_of_file_to_bashrc_idempotent exports
-# - whatever function/list_files_containing exports
 # - whatever function/tar_create exports
+# - whatever function/list_files_containing exports
+# - whatever function/translate exports
+# - whatever shortcuts
+#
+# Else:
+# - Adds sourcing of itself to .bashrc
+# - Installs jq
 ##############################
 
 
@@ -52,8 +58,12 @@ source "${bashConfigurationRoot}/function/tar_create"
 source "${bashConfigurationRoot}/function/list_files_containing"
 source "${bashConfigurationRoot}/function/translate"
 
+
+
 #################### Source shortcuts
 source "${bashConfigurationRoot}/shortcuts"
+
+
 
 #################### Idempotent setup
 
