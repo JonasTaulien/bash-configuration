@@ -11,7 +11,7 @@
 # - whatever function/tar_create exports
 # - whatever function/list_files_containing exports
 # - whatever function/translate exports
-# - whatever shortcuts
+# - whatever shortcuts exports
 #
 # Else:
 # - Adds sourcing of itself to .bashrc
@@ -66,7 +66,6 @@ source "${bashConfigurationRoot}/shortcuts"
 
 
 #################### Idempotent setup
-
 # Add sourcing of itself to ~/.bashrc
 pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
 if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; then
