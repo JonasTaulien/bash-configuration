@@ -52,6 +52,9 @@ source "${bashConfigurationRoot}/function/tar_create"
 source "${bashConfigurationRoot}/function/list_files_containing"
 source "${bashConfigurationRoot}/function/translate"
 
+#################### Source shortcuts
+source "${bashConfigurationRoot}/shortcuts"
+
 #################### Idempotent setup
 
 # Add sourcing of itself to ~/.bashrc
