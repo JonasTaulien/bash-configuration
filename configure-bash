@@ -48,6 +48,7 @@ source "${bashConfigurationRoot}/function/file_contains"
 source "${bashConfigurationRoot}/function/append_idempotent"
 source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
 source "${bashConfigurationRoot}/function/list_files_containing"
+source "${bashConfigurationRoot}/function/translate"
 
 
 
@@ -58,6 +59,16 @@ pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
 if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; then
     echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
 fi
+
+# Install/update jq
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
+    "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
+    *) echo "Error: Unknown operating system. jq not installed!" ;;
+esac
+
+
+
 
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
