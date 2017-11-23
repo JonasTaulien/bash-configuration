@@ -7,7 +7,7 @@
 
 
 
-alias jr_doc_funct_file_contains="echo \"$(cat <<'//'
+alias jr_doc_funct_file_contains="echo \"
 ##########
 # Checks whether a file contains a string.
 # This reads the whole file into memory, so don't use this function with a big file.
@@ -17,9 +17,7 @@ alias jr_doc_funct_file_contains="echo \"$(cat <<'//'
 # @return 
 #   - 0 when the given file DOES contain the given string
 #   - 1 when the given file DOES NOT contain the given string
-##########
-//
-)\""
+##########\""
 jr_funct_file_contains(){
     local filePath="${1}"
     local string="${2}"

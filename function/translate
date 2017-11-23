@@ -9,7 +9,7 @@
 #   @see https://stedolan.github.io/jq/
 ##############################
 
-alias jr_doc_funct_translate="echo \"$(cat <<'//'
+alias jr_doc_funct_translate="echo \"
 ##########
 # Translates text by using DeepL API
 #
@@ -23,9 +23,7 @@ alias jr_doc_funct_translate="echo \"$(cat <<'//'
 #   - PL
 # @param2 text to translate
 # @stdout possible translations
-##########
-//
-)\""
+##########\""
 jr_funct_translate(){
     local targetLanguage="${1}"
     local textToTranslate="${2}"

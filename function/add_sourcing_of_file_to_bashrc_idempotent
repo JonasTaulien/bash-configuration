@@ -11,7 +11,7 @@
 #   @see jr_doc_funct_get_absolute_path_of_parent_directory
 ##############################
 
-alias jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent="echo \"$(cat <<'//'
+alias jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent="echo \"
 ##########
 # Appends the sourcing of a file to the ~/.bashrc if the file does not already get sourced in it.
 #
@@ -19,9 +19,7 @@ alias jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent="echo \"$(cat <<'//
 # @return
 #   - 0 when the sourcing was appended to the ~/.bashrc file
 #   - 1 when the sourcing was already contained in the ~/.bashrc file
-##########
-//
-)\""
+##########\""
 jr_funct_add_sourcing_of_file_to_bashrc_idempotent(){
     local fileToBeSourced="${1}"
     local absolutePathOfFileToBeSourced=$(jr_funct_get_absolute_path_of_parent_directory "${fileToBeSourced}")

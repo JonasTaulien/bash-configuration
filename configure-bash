@@ -24,17 +24,15 @@
 
 # We can't create a function file for this because for sourcing function files we need no be able
 # to calculate the path to them.
-alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"$(cat <<'//'
+alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"
 ##########
 # Calculates the absolute path of the parent directory of the given path.
 # If the given path is relative, it is assumed, that it is relative to the current working directory
-# Example: Get base-path of current script: \$(jr_funct_get_absolute_path_of_parent_directory "\${BASH_SOURCE[0]}")
+# Example: Get base-path of current script: \\\$(jr_funct_get_absolute_path_of_parent_directory \\\"\\\${BASH_SOURCE[0]}\\\")
 #
 # @param1 A (maybe relative) path to a file or directory
 # @stdout Absolute path of the parent directory of the file or directory
-##########
-//
-)\""
+##########\""
 jr_funct_get_absolute_path_of_parent_directory(){
     local path="${1}"
     echo -n "$(cd "$(dirname "${path}")" && pwd)"

@@ -9,7 +9,7 @@
 #   @see jr_doc_funct_file_contains
 ##############################
 
-alias jr_doc_funct_append_idempotent="echo \"$(cat <<'//'
+alias jr_doc_funct_append_idempotent="echo \"
 ##########
 # Appends a string to a file if the file does not contain the string.
 #
@@ -18,9 +18,7 @@ alias jr_doc_funct_append_idempotent="echo \"$(cat <<'//'
 # @return
 #   - 0 when the string was appended to the file
 #   - 1 when the string was already contained in the file
-##########
-//
-)\""
+##########\""
 jr_funct_append_idempotent(){
     local filePath="${1}"
     local string="${2}"
