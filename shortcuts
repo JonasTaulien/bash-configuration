@@ -13,3 +13,8 @@ alias ls1='ls -p1A'
 # -A is for printing also files, that are starting with a dot (but not '.' and '..')
 ##########
 alias lsl='ls -plA'
+
+##########
+# Undos act of committing
+##########
+alias git_undo_last_commit='git reset --soft HEAD~'

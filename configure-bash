@@ -55,6 +55,7 @@ source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempot
 source "${bashConfigurationRoot}/function/tar_create"
 source "${bashConfigurationRoot}/function/list_files_containing"
 source "${bashConfigurationRoot}/function/translate"
+source "${bashConfigurationRoot}/function/git"
 
 
 
