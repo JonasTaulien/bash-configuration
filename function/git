@@ -3,6 +3,8 @@
 # Exports:
 # - jr_funct_git_feature_create
 #   @see jr_funct_git_feature_create
+# - jr_funct_git_finish_release
+#   @see jr_funct_git_finish_release
 ##############################
 
 alias jr_doc_funct_git_feature_create="echo \"
@@ -18,3 +20,24 @@ jr_funct_git_feature_create(){
     git push --no-verify --set-upstream origin "${featureToCreate}"
 }
 export -f jr_funct_git_feature_create
+
+
+
+alias jr_doc_funct_git_finish_release="echo \"
+##########
+# Finishes a release
+#
+# @param1 name of the release to finish
+##########\""
+jr_funct_git_finish_release(){
+    local releaseToFinish="${1}"
+    
+    git checkout master && git merge --no-ff "release-${releaseToFinish}" || (echo ">>> Could not merge release into master"; exit 1)
+     
+    git tag -a "${releaseToFinish}" -m "For changes see [${releaseToFinish}] section in CHANGELOG.md" && git push && git push --tags || (echo ">>> Could not create tag"; exit 1)
+      
+    git checkout develop && git merge --no-ff "release-${releaseToFinish}" && git push || (echo ">>> Could not merge release into develop"; exit 1)
+    
+    git push --no-verify origin --delete "release-${releaseToFinish}" && git branch -d "release-${releaseToFinish}" || (echo ">>> Could not remove release branch"; exit 1)
+}
+export -f jr_funct_git_finish_release
