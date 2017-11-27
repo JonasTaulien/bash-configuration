@@ -10,6 +10,10 @@
 alias jr_doc_funct_list_files_containing="echo \"
 ##########
 # Lists all files that contain a regex.
+# It is not searched in directories or files for which the user does not have the permissions.
+# The following directories get excluded:
+# - '.git'
+# - '.idea'
 #
 # @param1 a path to a directory in which should be searched.
 # @param2 a regex.
