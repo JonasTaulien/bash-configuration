@@ -27,6 +27,7 @@ bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathn
 
 
 #################### Source base functions
+source "${bashConfigurationRoot}/function/file_contains"
 source "${bashConfigurationRoot}/function/copy_file_idempotent"
 source "${bashConfigurationRoot}/function/append_idempotent"
 source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
@@ -64,7 +65,6 @@ source "${bashConfigurationRoot}/variables.sh"
 
 
 #################### Source functions
-source "${bashConfigurationRoot}/function/file_contains"
 source "${bashConfigurationRoot}/function/tar_create"
 source "${bashConfigurationRoot}/function/list_files_containing"
 source "${bashConfigurationRoot}/function/translate"
