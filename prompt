@@ -6,12 +6,12 @@
 # - jr_var_machinename
 ##############################
 
-function jr_func_git_get_current_branch_info_or_nothing() {
+function jr_funct_git_get_current_branch_info_or_nothing() {
     local currentBranch=$(jr_funct_git_get_current_branch)
     if [ ! -z "${currentBranch}" ]; then
         echo -n -e "on branch \e[35m${currentBranch}\e[m "
     fi
 }
 
-PS1='--- \[\e[32m\]\u@${jr_var_machinename}\[\e[m\] in \[\e[33m\]\w\[\e[m\] (\[\e[36m\]$(jr_funct_count_objects_in_current_directory)\[\e[m\]) at \t $(jr_func_git_get_current_branch_info_or_nothing)---\n>>> '
+PS1='--- \[\e[32m\]\u@${jr_var_machinename}\[\e[m\] in \[\e[33m\]\w\[\e[m\] (\[\e[36m\]$(jr_funct_count_objects_in_current_directory)\[\e[m\]) at \t $(jr_funct_git_get_current_branch_info_or_nothing)---\n>>> '
 PS2="> "

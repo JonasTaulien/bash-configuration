@@ -50,7 +50,7 @@ fi
 case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
     "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
-    *) echo "Error: Unknown operating system. jq not installed!" ;;
+    *) echo "Error: Unknown operating system. Therefore installing of jq failed! Functions that depend on jq will not work." ;;
 esac
 
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
