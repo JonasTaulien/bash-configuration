@@ -1,4 +1,5 @@
 #!/bin/bash
+# This is the only place to create none-prefixed (jr_) and none-documented functions
 
 ##########
 # -p is for printing slashes after directory names
@@ -7,6 +8,7 @@
 ##########
 alias ls1='ls -p1A'
 
+
 ##########
 # -p is for printing slashes after directory names
 # -l is for printing every file on its own line, prefixed with meta-information
@@ -14,7 +16,5 @@ alias ls1='ls -p1A'
 ##########
 alias lsl='ls -plA'
 
-##########
-# Undos act of committing
-##########
-alias git_undo_last_commit='git reset --soft HEAD~'
+
+alias resource_bashrc='source ~/.bashrc'

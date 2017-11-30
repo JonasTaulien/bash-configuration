@@ -1,27 +1,5 @@
 #!/bin/bash
-##############################
-# Exports:
-# - jr_funct_get_absolute_path_of_parent_directory
-#   @see jr_doc_funct_get_absolute_path_of_parent_directory
-#
-# - whatever function/get_operating_system exports
-# - whatever function/file_contains exports
-# - whatever function/append_idempotent exports
-# - whatever function/add_sourcing_of_file_to_bashrc_idempotent exports
-# - whatever function/tar_create exports
-# - whatever function/list_files_containing exports
-# - whatever function/translate exports
-# - whatever shortcuts exports
-#
-# Else:
-# - Adds sourcing of itself to .bashrc
-# - Installs jq
-##############################
-
-
-
-#################### Pre
-
+#################### Create function to calculate absolute path of parent directory of a file
 # We can't create a function file for this because for sourcing function files we need no be able
 # to calculate the path to them.
 alias jr_doc_funct_get_absolute_path_of_parent_directory="echo \"
@@ -41,30 +19,27 @@ export -f jr_funct_get_absolute_path_of_parent_directory
 
 
 
+#################### Calculate parent directory of this file
 # Calculate absolute path to parent directory of this file
 pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
 bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathnameOfCurrentlyExecutingScript}")"
 
 
 
-#################### Source functions
-source "${bashConfigurationRoot}/function/get_operating_system"
-source "${bashConfigurationRoot}/function/file_contains"
+#################### Source base functions
+source "${bashConfigurationRoot}/function/copy_file_idempotent"
 source "${bashConfigurationRoot}/function/append_idempotent"
 source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
-source "${bashConfigurationRoot}/function/tar_create"
-source "${bashConfigurationRoot}/function/list_files_containing"
-source "${bashConfigurationRoot}/function/translate"
-source "${bashConfigurationRoot}/function/git"
+source "${bashConfigurationRoot}/function/get_operating_system"
 
 
 
-#################### Source shortcuts
-source "${bashConfigurationRoot}/shortcuts"
+#################### Idempotent setup 
+# Create variables.local.sh file if not present
+if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
+    echo "TODO: Created ${bashConfigurationRoot}/variables.sh please override them"
+fi
 
-
-
-#################### Idempotent setup
 # Add sourcing of itself to ~/.bashrc
 pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
 if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; then
@@ -78,8 +53,32 @@ case $(jr_funct_get_operating_system) in
     *) echo "Error: Unknown operating system. jq not installed!" ;;
 esac
 
-
-
-
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
+
+
+
+#################### Source variables
+source "${bashConfigurationRoot}/variables.sh"
+
+
+
+#################### Source functions
+source "${bashConfigurationRoot}/function/file_contains"
+source "${bashConfigurationRoot}/function/tar_create"
+source "${bashConfigurationRoot}/function/list_files_containing"
+source "${bashConfigurationRoot}/function/translate"
+source "${bashConfigurationRoot}/function/git_create_feature"
+source "${bashConfigurationRoot}/function/git_undo_last_commit"
+source "${bashConfigurationRoot}/function/git_get_current_branch"
+source "${bashConfigurationRoot}/function/count_objects_in_current_directory"
+
+
+
+#################### Source shortcuts
+source "${bashConfigurationRoot}/shortcuts"
+
+
+
+#################### Source prompt
+source "${bashConfigurationRoot}/prompt"

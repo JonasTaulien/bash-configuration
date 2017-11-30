@@ -6,9 +6,7 @@
 #
 # Requires:
 # - jr_funct_append_idempotent
-#   @see jr_doc_funct_append_idempotent
 # - jr_funct_get_absolute_path_of_parent_directory
-#   @see jr_doc_funct_get_absolute_path_of_parent_directory
 ##############################
 
 alias jr_doc_funct_add_sourcing_of_file_to_bashrc_idempotent="echo \"

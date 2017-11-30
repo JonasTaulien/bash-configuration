@@ -6,7 +6,6 @@
 #
 # Requires:
 # - jr_funct_file_contains
-#   @see jr_doc_funct_file_contains
 ##############################
 
 alias jr_doc_funct_append_idempotent="echo \"
