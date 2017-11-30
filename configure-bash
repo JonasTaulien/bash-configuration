@@ -20,7 +20,6 @@ export -f jr_funct_get_absolute_path_of_parent_directory
 
 
 #################### Calculate parent directory of this file
-# Calculate absolute path to parent directory of this file
 pathnameOfCurrentlyExecutingScript=${BASH_SOURCE[0]}
 bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathnameOfCurrentlyExecutingScript}")"
 
