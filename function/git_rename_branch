@@ -24,6 +24,6 @@ jr_funct_git_rename_branch(){
     git push origin --no-verify --delete "${oldName}"
     
     echo "Pushing renamed local branch ${newName}"
-    git push origin --no-verify "${newName}"
+    git push --no-verify --set-upstream origin "${newName}"
 }
 export -f jr_funct_git_rename_branch
