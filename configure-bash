@@ -46,7 +46,12 @@ if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; 
     echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
 fi
 
-# Install/update jq
+# Install curl
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_debian}") which curl > /dev/null || sudo apt-get install -qq curl ;;
+esac
+
+# Install jq
 case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
     "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
