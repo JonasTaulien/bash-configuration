@@ -1,5 +1,5 @@
 #!/bin/bash
-# This is the only place to create none-prefixed (jr_) and none-documented functions
+# This is the only place to create non-prefixed (jr_) and non-documented functions
 
 ##########
 # -p is for printing slashes after directory names
@@ -18,3 +18,6 @@ alias lsl='ls -plA'
 
 
 alias resource_bashrc='source ~/.bashrc'
+
+
+alias git_add_all_and_commit='git add -A && git commit -m'
