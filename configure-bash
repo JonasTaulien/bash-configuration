@@ -29,8 +29,9 @@ bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathn
 source "${bashConfigurationRoot}/function/file_contains"
 source "${bashConfigurationRoot}/function/copy_file_idempotent"
 source "${bashConfigurationRoot}/function/append_idempotent"
-source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_bashrc_idempotent"
+source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_other_file_idempotent"
 source "${bashConfigurationRoot}/function/get_operating_system"
+source "${bashConfigurationRoot}/function/is_bash_version_at_least"
 
 
 
@@ -40,9 +41,14 @@ if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh"
     echo "TODO: Created ${bashConfigurationRoot}/variables.sh please override them"
 fi
 
+# Add sourcing of ~/.bashrc to ~/.bash_profile
+if jr_funct_add_sourcing_of_file_to_other_file_idempotent ~/.bashrc ~/.bash_profile; then
+    echo "Added sourcing of ~/.bashrc to ~/.bash_profile"
+fi
+
 # Add sourcing of itself to ~/.bashrc
 pathToConfigureBash="${bashConfigurationRoot}/configure-bash"
-if jr_funct_add_sourcing_of_file_to_bashrc_idempotent "${pathToConfigureBash}"; then
+if jr_funct_add_sourcing_of_file_to_other_file_idempotent "${pathToConfigureBash}" ~/.bashrc; then
     echo "Added sourcing of myself (${pathToConfigureBash}) to ~/.bashrc"
 fi
 
@@ -51,11 +57,21 @@ case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_debian}") which curl > /dev/null || sudo apt-get install -qq curl ;;
 esac
 
+# Install brew if macOs
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}") which brew > /dev/null || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" ;;
+esac
+
 # Install jq
 case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
     "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
     *) echo "Error: Unknown operating system. Therefore installing of jq failed! Functions that depend on jq will not work." ;;
+esac
+
+# Upgrade bash
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}") jr_funct_is_bash_version_at_least 4 0 0 || brew install bash ;;
 esac
 
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)

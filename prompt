@@ -9,7 +9,7 @@
 function jr_funct_git_get_current_branch_info_or_nothing() {
     local currentBranch=$(jr_funct_git_get_current_branch)
     if [ ! -z "${currentBranch}" ]; then
-        echo -n -e "on branch \e[35m${currentBranch}\e[m "
+        echo -n -e "on branch \033[35m${currentBranch}\033[0m "
     fi
 }
 
