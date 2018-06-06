@@ -36,9 +36,9 @@ source "${bashConfigurationRoot}/function/is_bash_version_at_least"
 
 
 #################### Idempotent setup 
-# Create variables.sh file if not present
-if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
-    echo "TODO: Created ${bashConfigurationRoot}/variables.sh please override them"
+# Create variables file if not present
+if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables" "${bashConfigurationRoot}/variables"; then
+    echo "TODO: Created ${bashConfigurationRoot}/variables please override them"
 fi
 
 # Add sourcing of ~/.bashrc to ~/.bash_profile
@@ -80,7 +80,7 @@ esac
 
 
 #################### Source variables
-source "${bashConfigurationRoot}/variables.sh"
+source "${bashConfigurationRoot}/variables"
 
 
 
