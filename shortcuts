@@ -21,3 +21,8 @@ alias resource_bashrc='source ~/.bashrc'
 
 
 alias git_add_all_and_commit='git add -A && git commit -m'
+
+alias git_create_branch='jr_funct_git_create_branch'
+alias git_delete_branch_also_on_remote='jr_funct_git_delete_branch_also_on_remote'
+alias git_rename_branch_also_on_remote='jr_funct_git_rename_branch_also_on_remote'
+alias git_undo_last_commit='jr_funct_git_undo_last_commit'

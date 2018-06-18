@@ -1,18 +1,18 @@
 #!/bin/bash
 ##############################
 # Exports:
-# - jr_funct_git_rename_branch
-#   @see jr_doc_funct_git_rename_branch
+# - jr_funct_git_rename_branch_also_on_remote
+#   @see jr_doc_funct_git_rename_branch_also_on_remote
 ##############################
 
-alias jr_doc_funct_git_rename_branch="echo \"
+alias jr_doc_funct_git_rename_branch_also_on_remote="echo \"
 ##########
 # Renames a branch
 #
 # @param1 old name
 # @param2 new name
 ##########\""
-jr_funct_git_rename_branch(){
+jr_funct_git_rename_branch_also_on_remote(){
     local oldName="${1}"
     local newName="${2}"
     
@@ -26,4 +26,4 @@ jr_funct_git_rename_branch(){
     echo "Pushing renamed local branch ${newName}"
     git push --no-verify --set-upstream origin "${newName}"
 }
-export -f jr_funct_git_rename_branch
+export -f jr_funct_git_rename_branch_also_on_remote
