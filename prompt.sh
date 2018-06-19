@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ##############################
 # Requires:
 # - jr_funct_git_get_current_branch

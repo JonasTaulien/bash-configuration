@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias jr_doc_var_machinename="echo \"
 ##########

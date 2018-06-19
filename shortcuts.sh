@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This is the only place to create non-prefixed (jr_) and non-documented functions
 
 ##########

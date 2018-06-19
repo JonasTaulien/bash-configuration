@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ##############################
 # Exports:
 # - jr_funct_add_sourcing_of_file_to_other_file_idempotent

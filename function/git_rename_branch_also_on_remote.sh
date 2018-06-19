@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ##############################
 # Exports:
 # - jr_funct_git_rename_branch_also_on_remote

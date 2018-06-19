@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #################### Create function to calculate absolute path of parent directory of a file
 # We can't create a function file for this because for sourcing function files we need no be able
 # to calculate the path to them.
@@ -26,18 +26,18 @@ bashConfigurationRoot="$(jr_funct_get_absolute_path_of_parent_directory "${pathn
 
 
 #################### Source base functions
-source "${bashConfigurationRoot}/function/file_contains"
-source "${bashConfigurationRoot}/function/copy_file_idempotent"
-source "${bashConfigurationRoot}/function/append_idempotent"
-source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_other_file_idempotent"
-source "${bashConfigurationRoot}/function/get_operating_system"
-source "${bashConfigurationRoot}/function/is_bash_version_at_least"
+source "${bashConfigurationRoot}/function/file_contains.sh"
+source "${bashConfigurationRoot}/function/copy_file_idempotent.sh"
+source "${bashConfigurationRoot}/function/append_idempotent.sh"
+source "${bashConfigurationRoot}/function/add_sourcing_of_file_to_other_file_idempotent.sh"
+source "${bashConfigurationRoot}/function/get_operating_system.sh"
+source "${bashConfigurationRoot}/function/is_bash_version_at_least.sh"
 
 
 
 #################### Idempotent setup 
 # Create variables file if not present
-if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables" "${bashConfigurationRoot}/variables"; then
+if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
     echo "TODO: Created ${bashConfigurationRoot}/variables please override them"
 fi
 
@@ -80,27 +80,27 @@ esac
 
 
 #################### Source variables
-source "${bashConfigurationRoot}/variables"
+source "${bashConfigurationRoot}/variables.sh"
 
 
 
 #################### Source functions
-source "${bashConfigurationRoot}/function/tar_create"
-source "${bashConfigurationRoot}/function/list_files_containing"
-source "${bashConfigurationRoot}/function/translate"
-source "${bashConfigurationRoot}/function/git_create_branch"
-source "${bashConfigurationRoot}/function/git_rename_branch_also_on_remote"
-source "${bashConfigurationRoot}/function/git_undo_last_commit"
-source "${bashConfigurationRoot}/function/git_get_current_branch"
-source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote"
-source "${bashConfigurationRoot}/function/count_objects_in_current_directory"
+source "${bashConfigurationRoot}/function/tar_create.sh"
+source "${bashConfigurationRoot}/function/list_files_containing.sh"
+source "${bashConfigurationRoot}/function/translate.sh"
+source "${bashConfigurationRoot}/function/git_create_branch.sh"
+source "${bashConfigurationRoot}/function/git_rename_branch_also_on_remote.sh"
+source "${bashConfigurationRoot}/function/git_undo_last_commit.sh"
+source "${bashConfigurationRoot}/function/git_get_current_branch.sh"
+source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
+source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
 
 
 
 #################### Source shortcuts
-source "${bashConfigurationRoot}/shortcuts"
+source "${bashConfigurationRoot}/shortcuts.sh"
 
 
 
 #################### Source prompt
-source "${bashConfigurationRoot}/prompt"
+source "${bashConfigurationRoot}/prompt.sh"
