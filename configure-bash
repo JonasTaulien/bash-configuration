@@ -35,7 +35,7 @@ source "${bashConfigurationRoot}/function/is_bash_version_at_least.sh"
 
 
 
-#################### Idempotent setup 
+#################### Idempotent setup
 # Create variables file if not present
 if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
     echo "TODO: Created ${bashConfigurationRoot}/variables please override them"
@@ -92,6 +92,8 @@ source "${bashConfigurationRoot}/function/git_create_branch.sh"
 source "${bashConfigurationRoot}/function/git_rename_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_undo_last_commit.sh"
 source "${bashConfigurationRoot}/function/git_get_current_branch.sh"
+source "${bashConfigurationRoot}/function/git_delete_branch_locally.sh"
+source "${bashConfigurationRoot}/function/git_delete_branch_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
 

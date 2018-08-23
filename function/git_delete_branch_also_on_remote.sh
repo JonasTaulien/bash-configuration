@@ -3,6 +3,10 @@
 # Exports:
 # - jr_funct_git_delete_branch_also_on_remote
 #   @see jr_doc_funct_git_delete_branch_also_on_remote
+#
+# Requires:
+# - jr_funct_git_delete_branch_locally
+# - jr_funct_git_delete_branch_on_remote
 ##############################
 
 alias jr_doc_funct_git_delete_branch_also_on_remote="echo \"
@@ -18,7 +22,7 @@ jr_funct_git_delete_branch_also_on_remote(){
     local remoteName="${2:-origin}"
     local remoteBranchName="${3:-${branchToDelete}}"
 
-    git push "${remoteName}" --delete "${remoteBranchName}"
-    git branch -d "${branchToDelete}"
+    jr_funct_git_delete_branch_on_remote "${remoteBranchName}" "${remoteName}"
+    jr_funct_git_delete_branch_locally "${branchToDelete}"
 }
 export -f jr_funct_git_delete_branch_also_on_remote
