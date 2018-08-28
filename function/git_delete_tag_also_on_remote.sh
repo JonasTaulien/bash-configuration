@@ -17,6 +17,6 @@ jr_funct_git_delete_tag_also_on_remote(){
     local remoteName="${2:-origin}"
 
     git tag --delete "${tagToDelete}"
-    git tag --delete "${remoteName}" "${tagToDelete}"
+    git push --delete "${remoteName}" "${tagToDelete}"
 }
 export -f jr_funct_git_delete_tag_also_on_remote
