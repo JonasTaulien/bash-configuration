@@ -85,8 +85,13 @@ esac
 
 # Configure git
 git config --global user.name "${jr_var_git_name}"
-git config --global user.email "${jr_var_git_email}"
+git config --global user.email "${jr_var_email}"
 
+# Setup ssh-key if not existent
+if [ ! -f ~/.ssh/id_rsa ]; then
+    echo "No private key setup. Generating one..."
+    ssh-keygen -q -t rsa -b 4096 -C "${jr_var_email}" -f ~/.ssh/id_rsa -N ''
+fi
 
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)

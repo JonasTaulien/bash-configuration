@@ -12,7 +12,7 @@ export jr_var_machinename="TODO_EDIT_MACHINE_NAME_IN_VARIABLES"
 
 alias jr_doc_var_git_name="echo \"
 ##########
-# Hostname to show in the prompt
+# My name :)
 #
 # @type String
 ##########\""
@@ -20,10 +20,10 @@ export jr_var_git_name="Jonas Rudolph"
 
 
 
-alias jr_doc_var_git_email="echo \"
+alias jr_doc_var_email="echo \"
 ##########
-# Hostname to show in the prompt
+# E-Mail address to use for this computer
 #
 # @type String
 ##########\""
-export jr_var_git_email="TODO_EDIT_EMAIL_IN_VARIABLES"
+export jr_var_email="TODO_EDIT_EMAIL_IN_VARIABLES"
