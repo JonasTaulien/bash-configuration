@@ -79,9 +79,18 @@ case $(jr_funct_get_operating_system) in
 esac
 
 # Upgrade bash
-case $(jr_funct_get_operating_system) in
-    "${jr_const_operating_system_macos}") jr_funct_is_bash_version_at_least 4 0 0 || brew install bash ;;
-esac
+if ! jr_funct_is_bash_version_at_least 4 0 0; then
+    case $(jr_funct_get_operating_system) in
+        "${jr_const_operating_system_macos}")
+            brew install bash
+            echo 'Please insert password for appending /usr/local/bin/bash to /etc/shells:'
+            echo /usr/local/bin/bash | sudo tee -a /etc/shells
+            chsh -s /usr/local/bin/bash
+            echo 'ATTENTION: Please set /usr/local/bin/bash as default shell in IntelliJ IDEA and Terminal!'
+            ;;
+        *) echo 'ATTENTION: Bash is outdated please install newest version!'
+    esac
+fi
 
 # Configure git
 git config --global user.name "${jr_var_git_name}"
