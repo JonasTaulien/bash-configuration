@@ -35,12 +35,21 @@ source "${bashConfigurationRoot}/function/is_bash_version_at_least.sh"
 
 
 
-#################### Idempotent setup 
+#################### Variable setup
 # Create variables file if not present
 if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
-    echo "TODO: Created ${bashConfigurationRoot}/variables please override them"
+    echo "TODO: Created ${bashConfigurationRoot}/variables please override them and execute resource_bashrc"
 fi
 
+
+
+#################### Source variables
+source "${bashConfigurationRoot}/default-variables.sh"
+source "${bashConfigurationRoot}/variables.sh"
+
+
+
+#################### Idempotent setup
 # Add sourcing of ~/.bashrc to ~/.bash_profile
 if jr_funct_add_sourcing_of_file_to_other_file_idempotent ~/.bashrc ~/.bash_profile; then
     echo "Added sourcing of ~/.bashrc to ~/.bash_profile"
@@ -74,13 +83,13 @@ case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_macos}") jr_funct_is_bash_version_at_least 4 0 0 || brew install bash ;;
 esac
 
+# Configure git
+git config --global user.name "${jr_var_git_name}"
+git config --global user.email "${jr_var_git_email}"
+
+
 # Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
 # Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
-
-
-
-#################### Source variables
-source "${bashConfigurationRoot}/variables.sh"
 
 
 

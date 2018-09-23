@@ -6,4 +6,24 @@ alias jr_doc_var_machinename="echo \"
 #
 # @type String
 ##########\""
-export jr_var_machinename="jonas.local"
+export jr_var_machinename="TODO_EDIT_MACHINE_NAME_IN_VARIABLES"
+
+
+
+alias jr_doc_var_git_name="echo \"
+##########
+# Hostname to show in the prompt
+#
+# @type String
+##########\""
+export jr_var_git_name="Jonas Rudolph"
+
+
+
+alias jr_doc_var_git_email="echo \"
+##########
+# Hostname to show in the prompt
+#
+# @type String
+##########\""
+export jr_var_git_email="TODO_EDIT_EMAIL_IN_VARIABLES"
