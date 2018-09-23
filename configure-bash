@@ -120,14 +120,13 @@ case $(jr_funct_get_operating_system) in
         brew ls --versions 'open-completion' > /dev/null || brew install 'open-completion'
         source /usr/local/share/bash-completion/bash_completion
 
-        readonly git_version=$(brew ls --versions git | cut -d ' ' -f 2)
+        git_version=$(brew ls --versions git | cut -d ' ' -f 2)
         source "/usr/local/Cellar/git/${git_version}/etc/bash_completion.d/git-completion.bash"
         ;;
 esac
 
-# TODO: Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
-# TODO: Add important to shortcuts
-# TODO: Add PDF-concat
+# Activate sensible-bash
+source "${bashConfigurationRoot}/sensible-bash_0.2.3.sh"
 
 
 
@@ -145,6 +144,13 @@ source "${bashConfigurationRoot}/function/git_delete_branch_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_tag_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
+
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}")
+        source "${bashConfigurationRoot}/function/macos_pdf_concat.sh"
+        alias jr_funct_pdf_concat='jr_funct_macos_pdf_concat'
+        ;;
+esac
 
 
 
