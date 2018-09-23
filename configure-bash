@@ -106,7 +106,11 @@ source "${bashConfigurationRoot}/function/git_create_branch.sh"
 source "${bashConfigurationRoot}/function/git_rename_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_undo_last_commit.sh"
 source "${bashConfigurationRoot}/function/git_get_current_branch.sh"
+source "${bashConfigurationRoot}/function/git_rename_current_branch_also_on_remote.sh"
+source "${bashConfigurationRoot}/function/git_delete_branch_locally.sh"
+source "${bashConfigurationRoot}/function/git_delete_branch_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
+source "${bashConfigurationRoot}/function/git_delete_tag_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
 
 
