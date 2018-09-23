@@ -72,14 +72,15 @@ case $(jr_funct_get_operating_system) in
 esac
 
 # Install jq
-case $(jr_funct_get_operating_system) in
-    "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
-    "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
-    *) echo "Error: Unknown operating system. Therefore installing of jq failed! Functions that depend on jq will not work." ;;
-esac
+if ! which jq > /dev/null; then
+    case $(jr_funct_get_operating_system) in
+        "${jr_const_operating_system_debian}") sudo apt-get install -qq jq ;;
+        "${jr_const_operating_system_macos}") brew install jq > /dev/null ;;
+    esac
+fi
 
 # Upgrade bash
-if ! jr_funct_is_bash_version_at_least 4 0 0; then
+if ! jr_funct_is_bash_version_at_least 4 1 0; then
     case $(jr_funct_get_operating_system) in
         "${jr_const_operating_system_macos}")
             brew install bash
@@ -102,8 +103,31 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -q -t rsa -b 4096 -C "${jr_var_email}" -f ~/.ssh/id_rsa -N ''
 fi
 
-# Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
-# Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
+# Install git via homebrew
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}")
+        brew ls --versions 'git' > /dev/null || brew install 'git'
+        ;;
+esac
+
+# Install bash-completion
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}")
+        brew ls --versions 'bash-completion@2' > /dev/null || brew install 'bash-completion@2'
+        brew ls --versions 'docker-completion' > /dev/null || brew install 'docker-completion'
+        brew ls --versions 'docker-compose-completion' > /dev/null || brew install 'docker-compose-completion'
+        brew ls --versions 'maven-completion' > /dev/null || brew install 'maven-completion'
+        brew ls --versions 'open-completion' > /dev/null || brew install 'open-completion'
+        source /usr/local/share/bash-completion/bash_completion
+
+        readonly git_version=$(brew ls --versions git | cut -d ' ' -f 2)
+        source "/usr/local/Cellar/git/${git_version}/etc/bash_completion.d/git-completion.bash"
+        ;;
+esac
+
+# TODO: Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
+# TODO: Add important to shortcuts
+# TODO: Add PDF-concat
 
 
 
