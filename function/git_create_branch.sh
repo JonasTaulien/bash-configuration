@@ -11,14 +11,12 @@ alias jr_doc_funct_git_create_branch="echo \"
 #
 # @param1 name of the branch
 # @param2 name of the remote. Default: 'origin'
-# @param2 name of the branch on the remote. Default: @param1
 ##########\""
 jr_funct_git_create_branch(){
     local branchToCreate="${1}"
     local remoteName="${2:-origin}"
-    local remoteBranchName="${3:-${branchToCreate}}"
 
     git checkout -b "${branchToCreate}"
-    git push --no-verify --set-upstream "${remoteName}" "${remoteBranchName}"
+    git push --no-verify --set-upstream "${remoteName}" "${branchToCreate}"
 }
 export -f jr_funct_git_create_branch
