@@ -35,12 +35,21 @@ source "${bashConfigurationRoot}/function/is_bash_version_at_least.sh"
 
 
 
-#################### Idempotent setup
+#################### Variable setup
 # Create variables file if not present
 if jr_funct_copy_file_idempotent "${bashConfigurationRoot}/default-variables.sh" "${bashConfigurationRoot}/variables.sh"; then
-    echo "TODO: Created ${bashConfigurationRoot}/variables please override them"
+    echo "TODO: Created ${bashConfigurationRoot}/variables please override them and execute resource_bashrc"
 fi
 
+
+
+#################### Source variables
+source "${bashConfigurationRoot}/default-variables.sh"
+source "${bashConfigurationRoot}/variables.sh"
+
+
+
+#################### Idempotent setup
 # Add sourcing of ~/.bashrc to ~/.bash_profile
 if jr_funct_add_sourcing_of_file_to_other_file_idempotent ~/.bashrc ~/.bash_profile; then
     echo "Added sourcing of ~/.bashrc to ~/.bash_profile"
@@ -63,24 +72,61 @@ case $(jr_funct_get_operating_system) in
 esac
 
 # Install jq
-case $(jr_funct_get_operating_system) in
-    "${jr_const_operating_system_debian}") which jq > /dev/null || sudo apt-get install -qq jq ;;
-    "${jr_const_operating_system_macos}") which jq > /dev/null || brew install jq > /dev/null ;;
-    *) echo "Error: Unknown operating system. Therefore installing of jq failed! Functions that depend on jq will not work." ;;
-esac
+if ! which jq > /dev/null; then
+    case $(jr_funct_get_operating_system) in
+        "${jr_const_operating_system_debian}") sudo apt-get install -qq jq ;;
+        "${jr_const_operating_system_macos}") brew install jq > /dev/null ;;
+    esac
+fi
 
 # Upgrade bash
+if ! jr_funct_is_bash_version_at_least 4 1 0; then
+    case $(jr_funct_get_operating_system) in
+        "${jr_const_operating_system_macos}")
+            brew install bash
+            echo 'Please insert password for appending /usr/local/bin/bash to /etc/shells:'
+            echo /usr/local/bin/bash | sudo tee -a /etc/shells
+            chsh -s /usr/local/bin/bash
+            echo 'ATTENTION: Please set /usr/local/bin/bash as default shell in IntelliJ IDEA and Terminal!'
+            ;;
+        *) echo 'ATTENTION: Bash is outdated please install newest version!'
+    esac
+fi
+
+# Configure git
+git config --global user.name "${jr_var_git_name}"
+git config --global user.email "${jr_var_email}"
+
+# Setup ssh-key if not existent
+if [ ! -f ~/.ssh/id_rsa ]; then
+    echo "No private key setup. Generating one..."
+    ssh-keygen -q -t rsa -b 4096 -C "${jr_var_email}" -f ~/.ssh/id_rsa -N ''
+fi
+
+# Install git via homebrew
 case $(jr_funct_get_operating_system) in
-    "${jr_const_operating_system_macos}") jr_funct_is_bash_version_at_least 4 0 0 || brew install bash ;;
+    "${jr_const_operating_system_macos}")
+        brew ls --versions 'git' > /dev/null || brew install 'git'
+        ;;
 esac
 
-# Install/update [bash-completion](http://bash-completion.alioth.debian.org | http://davidalger.com/development/bash-completion-on-os-x-with-brew)
-# Install/update [bash-sensible](https://github.com/mrzool/bash-sensible)
+# Install bash-completion
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}")
+        brew ls --versions 'bash-completion@2' > /dev/null || brew install 'bash-completion@2'
+        brew ls --versions 'docker-completion' > /dev/null || brew install 'docker-completion'
+        brew ls --versions 'docker-compose-completion' > /dev/null || brew install 'docker-compose-completion'
+        brew ls --versions 'maven-completion' > /dev/null || brew install 'maven-completion'
+        brew ls --versions 'open-completion' > /dev/null || brew install 'open-completion'
+        source /usr/local/share/bash-completion/bash_completion
 
+        git_version=$(brew ls --versions git | cut -d ' ' -f 2)
+        source "/usr/local/Cellar/git/${git_version}/etc/bash_completion.d/git-completion.bash"
+        ;;
+esac
 
-
-#################### Source variables
-source "${bashConfigurationRoot}/variables.sh"
+# Activate sensible-bash
+source "${bashConfigurationRoot}/sensible-bash_0.2.3.sh"
 
 
 
@@ -98,6 +144,13 @@ source "${bashConfigurationRoot}/function/git_delete_branch_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_tag_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
+
+case $(jr_funct_get_operating_system) in
+    "${jr_const_operating_system_macos}")
+        source "${bashConfigurationRoot}/function/macos_pdf_concat.sh"
+        alias jr_funct_pdf_concat='jr_funct_macos_pdf_concat'
+        ;;
+esac
 
 
 
