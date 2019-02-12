@@ -21,12 +21,19 @@ jr_funct_is_bash_version_at_least(){
     local minor="${2}"
     local patch="${3}"
 
-    if (( BASH_VERSINFO[0] >= major )); then
-        if (( BASH_VERSINFO[1] >= minor )); then
+
+    if (( BASH_VERSINFO[0] > major )); then
+      return 0
+
+    elif (( BASH_VERSINFO[0] == major )); then
+      if (( BASH_VERSINFO[1] > minor )); then
+        return 0
+
+      elif (( BASH_VERSINFO[1] == minor )); then
             if (( BASH_VERSINFO[2] >= patch )); then
                 return 0
             fi
-        fi 
+        fi
     fi
 
     return 1
