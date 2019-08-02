@@ -16,7 +16,7 @@ alias jr_doc_var_git_name="echo \"
 #
 # @type String
 ##########\""
-export jr_var_git_name="Jonas Rudolph"
+export jr_var_git_name="Jonas Taulien"
 
 
 
