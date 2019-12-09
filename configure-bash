@@ -162,3 +162,6 @@ source "${bashConfigurationRoot}/shortcuts.sh"
 
 #################### Source prompt
 source "${bashConfigurationRoot}/prompt.sh"
+
+##### Enable extended globbing
+shopt -s extglob

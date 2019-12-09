@@ -22,6 +22,8 @@ jr_funct_git_rename_branch_also_on_remote(){
     
     echo "Removing remote branch named ${oldName}"
     git push origin --no-verify --delete "${oldName}"
+
+    git branch --unset-upstream "${newName}"
     
     echo "Pushing renamed local branch ${newName}"
     git push --no-verify --set-upstream origin "${newName}"
