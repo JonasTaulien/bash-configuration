@@ -145,6 +145,7 @@ source "${bashConfigurationRoot}/function/git_delete_branch_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_branch_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/git_delete_tag_also_on_remote.sh"
 source "${bashConfigurationRoot}/function/count_objects_in_current_directory.sh"
+source "${bashConfigurationRoot}/function/check_password_breach.sh"
 
 case $(jr_funct_get_operating_system) in
     "${jr_const_operating_system_macos}")
