@@ -119,10 +119,9 @@ case $(jr_funct_get_operating_system) in
         brew ls --versions 'docker-compose-completion' > /dev/null || brew install 'docker-compose-completion'
         brew ls --versions 'maven-completion' > /dev/null || brew install 'maven-completion'
         brew ls --versions 'open-completion' > /dev/null || brew install 'open-completion'
-        source /usr/local/share/bash-completion/bash_completion
 
-        git_version=$(brew ls --versions git | cut -d ' ' -f 2)
-        source "/usr/local/Cellar/git/${git_version}/etc/bash_completion.d/git-completion.bash"
+        source "$(brew --prefix bash-completion@2)/etc/profile.d/bash_completion.sh"
+        source "$(brew --prefix git)/etc/bash_completion.d/git-completion.bash"
         ;;
 esac
 
