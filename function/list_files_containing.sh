@@ -22,6 +22,6 @@ alias jr_doc_funct_list_files_containing="echo \"
 jr_funct_list_files_containing(){
     local searchDirectory="${1}"
     local regex="${2}"
-    grep --dereference-recursive --line-number --exclude-dir=".git" --exclude-dir=".idea" --extended-regexp "${regex}" "${searchDirectory}"  2> /dev/null
+    grep --recursive --line-number --exclude-dir=".git" --exclude-dir=".idea" --extended-regexp "${regex}" "${searchDirectory}"  2> /dev/null
 }
 export -f jr_funct_list_files_containing
