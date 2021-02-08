@@ -97,6 +97,7 @@ fi
 git config --global user.name "${jr_var_git_name}"
 git config --global user.email "${jr_var_email}"
 git config --global push.default upstream
+git config --global pull.rebase false
 
 # Setup ssh-key if not existent
 if [ ! -f ~/.ssh/id_rsa ]; then
