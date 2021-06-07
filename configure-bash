@@ -170,3 +170,6 @@ shopt -s extglob
 
 ##### Set language to english
 export LANG=en_US.UTF-8
+
+##### Set java Version
+export JAVA_HOME=$(/usr/libexec/java_home -v 16)
